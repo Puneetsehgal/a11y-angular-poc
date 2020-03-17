@@ -1,4 +1,6 @@
-# A11yAngularPoc
+# A11y Angular Poc
+
+This project is a Angualr version of the [Publicis Sapient Accessible Ecommerce Demo Store](https://github.com/PublicisSapient/accessible-ecommerce-demo)
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 9.1.0-next.2.
 
