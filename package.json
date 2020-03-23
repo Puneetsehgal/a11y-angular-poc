@@ -19,6 +19,10 @@
     "@angular/platform-browser": "~9.1.0-next.3",
     "@angular/platform-browser-dynamic": "~9.1.0-next.3",
     "@angular/router": "~9.1.0-next.3",
+    "@types/pouchdb": "^6.4.0",
+    "pouchdb": "^7.2.1",
+    "pouchdb-debug": "7.2.1",
+    "pouchdb-find": "^7.2.1",
     "rxjs": "~6.5.4",
     "tslib": "^1.10.0",
     "zone.js": "~0.10.2"

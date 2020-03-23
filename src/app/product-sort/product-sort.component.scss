@@ -1,0 +1,65 @@
+@import '../../scss/mixins';
+@import '../../scss/variables';
+
+.product-sort {
+  @include component-panel;
+  padding: 24px;
+
+  .modal & {
+    box-shadow: none;
+    padding: 0;
+  }
+
+  &__options {
+    padding: 0 24px;
+
+  }
+
+  &__option {
+    margin-bottom: 24px;
+  }
+
+  @media only screen and (min-width: $filters-collapse) {
+    &__options {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(120px, 200px));
+      grid-gap: 24px;
+      justify-content: space-between;
+      padding: 0;
+    }
+
+    &__option {
+      margin-bottom: 0;
+    }
+  }
+
+  &__footer {
+    border-top: 1px solid $grey;
+    padding: 16px 24px 0;
+
+    @media only screen and (min-width: $filters-collapse) {
+      display: none;
+    }
+  }
+
+  &__close-btn {
+    width: 100%;
+  }
+
+
+  .heading {
+    display: inline;
+    margin-right: 8px;
+
+    .modal & {
+      margin-left: 24px;
+    }
+  }
+}
+
+
+.sort {
+  &__showing-count {
+    font-size: $font-sm;
+  }
+}

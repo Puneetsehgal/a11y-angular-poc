@@ -1,0 +1,155 @@
+<div class="mobile-filters">
+    <button class="mobile-filter" type="button" data-modal-load="filters">
+        Filters <span data-js="mobile-filter-count" aria-hidden="true">(0)</span>
+        <span class="sr-only">, </span>
+        <span class="sr-only" data-js="filter-count">0 filters applied</span>
+        <svg class="icon icon--add" xmlns:xlink="http://www.w3.org/1999/xlink">
+            <use xlink:href="../assets/sprite.svg#add"></use>
+        </svg>
+    </button>
+    <button class="mobile-filter" type="button" data-modal-load="sort">
+        Sort
+        <svg class="icon icon--add" xmlns:xlink="http://www.w3.org/1999/xlink">
+            <use xlink:href="../assets/sprite.svg#add"></use>
+        </svg>
+    </button>
+</div>
+<section aria-label="Filters" class="product-filters" data-component="filters">
+    <div class="product-filters__header">
+        <h2 class="heading heading--section">Filters</h2>
+        <a id="skip-to-products-from-filters-heading" class="skip-link" href="#skip-to-products-from-filters">Skip to Products</a>
+        <p class="product-filters__filter-count" aria-live="polite" aria-atomic="true" data-js="filter-count" [ngPlural]="totalFilterApplied">
+            {{totalFilterApplied}} 
+            <ng-template ngPluralCase="=1">filter</ng-template>
+            <ng-template ngPluralCase="other">filters</ng-template>
+            applied
+        </p>
+        <p class="element-invisible" [ngPlural]="totalFilterApplied">
+            Showing
+            <span data-js="product-count">{{totalFilterApplied}}</span> 
+            <ng-template ngPluralCase="=1">product</ng-template>
+            <ng-template ngPluralCase="other">products</ng-template>
+        </p>
+        <h3 class="sr-only" id="remove-filter-description">Remove filter</h3>
+        <ul class="active-filters">
+            <ng-container *ngFor="let color of colors">
+            <li class="active-filter" *ngIf="color.selected">
+                <button class="active-filter__remove-btn" data-remove-filter="color.name" aria-describedby="remove-filter-description" (click)="removeFilter('colors', color.name)">
+                    <svg class="icon--close-btn">
+                        <use xlink:href="../assets/sprite.svg#close"></use>
+                    </svg> {{color.name | titlecase}}
+                </button>
+            </li>
+            </ng-container>
+            <ng-container *ngFor="let size of sizes">
+            <li class="active-filter" *ngIf="size.selected">
+                <button class="active-filter__remove-btn" data-remove-filter="size.name" aria-describedby="remove-filter-description" (click)="removeFilter('sizes', size.name)">
+                    <svg class="icon--close-btn">
+                        <use xlink:href="../assets/sprite.svg#close"></use>
+                    </svg> {{size.name | titlecase}}
+                </button>
+            </li>
+            </ng-container>
+        </ul>
+        <button class="btn btn--link active-filters__clear-btn" data-js="clear-filters" type="button" (click)="clearAllFilter()">
+            Clear filters
+            <span class="sr-only">, </span>
+            <span class="sr-only" data-js="filter-count" [ngPlural]="totalFilterApplied">
+                {{totalFilterApplied}} 
+                <ng-template ngPluralCase="=1">filter</ng-template>
+                <ng-template ngPluralCase="other">filters</ng-template> applied</span>
+        </button>
+        <a id="skip-to-filters" class="skip-link" href="#skip-to-products-from-filters">Skip to Products</a>
+    </div>
+    <ul class="accordion product-filters__accordion">
+        <li class="filter">
+            <h3 class="accordion__heading filter__heading">
+                <button class="filter__toggle accordion__toggle" type="button" aria-expanded="true" data-js="accordion-toggle" (click)="accordionToggleClick($event)">
+                    Colors
+                    <svg class="icon icon--toggle-btn">
+                        <use class="icon--open" xlink:href="../assets/sprite.svg#add"></use>
+                        <use class="icon--closed" xlink:href="../assets/sprite.svg#remove"></use>
+                    </svg>
+                </button>
+            </h3>
+            <fieldset class="accordion__panel filter__options">
+                <legend id="colorLegend" class="sr-only">Filter by Colors</legend>
+                <ng-template let-color ngFor [ngForOf]='colors'>
+                    <input id="{{color.name}}" data-js="filter" class="checkbox__input" type="checkbox" name="color" value="{{color.name}}" [checked]="color.selected" (change)="checkboxFilter($event, 'colors', color.name)">
+                    <label for="{{color.name}}" class="checkbox__label">{{color.name | titlecase}}</label>
+                </ng-template>
+            </fieldset>
+            <a class="skip-link" href="#skip-to-products-from-filters">Skip to Products</a>
+        </li>
+        <li class="filter">
+            <h3 class="accordion__heading filter__heading">
+                <button class="filter__toggle accordion__toggle" type="button" aria-expanded="true" data-js="accordion-toggle" (click)="accordionToggleClick($event)">
+                    Size
+                    <svg class="icon icon--toggle-btn">
+                        <use class="icon--open" xlink:href="../assets/sprite.svg#add"></use>
+                        <use class="icon--closed" xlink:href="../assets/sprite.svg#remove"></use>
+                    </svg>
+                </button>
+            </h3>
+            <fieldset class="accordion__panel filter__options">
+                <legend id="sizeLegend" class="sr-only">Filter by Size</legend>
+                <ng-template let-size ngFor [ngForOf]='sizes'>
+                    <input id="{{size.name}}" data-js="filter" class="checkbox__input" type="checkbox" name="color" value="{{size.name}}" [checked]="size.selected" (change)="checkboxFilter($event, 'sizes', size.name)">
+                    <label for="{{size.name}}" class="checkbox__label">{{size.name | titlecase}}</label>
+                </ng-template>
+            </fieldset>
+            <a class="skip-link" href="#skip-to-products-from-filters">Skip to Products</a>
+        </li>
+        <li class="filter">
+            <h3 class="accordion__heading filter__heading">
+                <button class="filter__toggle accordion__toggle" type="button" aria-expanded="true" data-js="accordion-toggle" (click)="accordionToggleClick($event)">
+                    Price Range
+                    <svg class="icon icon--toggle-btn">
+                        <use class="icon--open" xlink:href="../assets/sprite.svg#add"></use>
+                        <use class="icon--closed" xlink:href="../assets/sprite.svg#remove"></use>
+                    </svg>
+                </button>
+            </h3>
+            <form data-js="price-filter" class="price-filter__form accordion__panel filter__options">
+                <input type="hidden" name="priceFilterFrom" id="priceFilterFrom" value="">
+                <input type="hidden" name="priceFilterTo" id="priceFilterTo" value="">
+                <p class="error-summary hidden" id="errorSummaryPriceFilters" role="alert">You have <span></span> in your price range.</p>
+                <fieldset class="price-filter__fieldset">
+                    <legend id="priceLegend" class="sr-only">Filter by Price</legend>
+                    <div class="price-filter__field-container">
+                        <label for="priceFrom" class="price-filter__label">
+                            <span class="sr-only">Price </span>From
+                            <input type="number" name="priceFrom" id="priceFrom" class="price-filter__input" aria-describedby="priceFromErrorMsg" [(ngModel)]="filters.priceFilterFrom">
+                        </label>
+                        <span class="error-msg priceFrom hidden" data-field="priceFrom" id="priceFromErrorMsg">Enter a number between 0 and 999.</span>
+                    </div>
+                    <div class="price-filter__field-container">
+                        <label for="priceTo" class="price-filter__label">
+                            <span class="sr-only">Price </span>To 
+                            <input type="number" name="priceTo" id="priceTo" class="price-filter__input" aria-describedby="priceToErrorMsg" [(ngModel)]="filters.priceFilterTo">
+                        </label>
+                        <span class="error-msg priceTo hidden" data-field="priceTo" id="priceToErrorMsg">Enter a number between 0 and 999.</span>
+                    </div>
+                </fieldset>
+                <button type="submit" class="price-filter__submit btn btn--outline-black" (click)="priceRangeFilter($event)">Update Range</button>
+                <button class="btn btn--link price-filter__clear-btn" type="button" data-js="price-range-clear" (click)="clearPriceRangeFilter()">
+                    Clear price range
+                </button>
+                <a class="skip-link" href="#skip-to-products-from-filters">Skip to Products</a>
+            </form>
+        </li>
+    </ul>
+    <div class="product-filters__footer">
+        <button class="btn active-filters__close-btn" data-js="close-modal" type="button">
+            I’m done
+        </button>
+        <button class="btn btn--link active-filters__clear-btn" data-js="clear-filters" type="button" (click)="clearAllFilter()">
+            Clear filters
+            <span class="sr-only">, </span>
+            <span class="sr-only" data-js="filter-count" [ngPlural]="totalFilterApplied">{{ totalFilterApplied }}
+                <ng-template ngPluralCase="=1">filter</ng-template>
+                <ng-template ngPluralCase="other">filters</ng-template>
+                applied</span>
+        </button>
+    </div>
+</section>
