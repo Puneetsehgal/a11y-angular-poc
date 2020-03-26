@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { enableSkipLinks } from './services/utils.service';
 
 @Component({
   selector: 'app-root',
@@ -7,11 +8,7 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'a11y-angular-poc';
-  globalVariables = {
-    rootPath: (
-      window.location.pathname === '/index.html'
-      || window.location.pathname === '/accessible-ecommerce-demo/'
-      || window.location.pathname === '/accessible-ecommerce-demo/index.html'
-    ) ? '.' : '..'
-  };
+  constructor() {
+    window.onload = enableSkipLinks;
+  }
 }

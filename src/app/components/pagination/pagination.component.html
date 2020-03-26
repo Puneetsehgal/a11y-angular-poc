@@ -1,0 +1,48 @@
+<nav aria-label="Products list Pagination">
+    <h2 class="sr-only">Pagination</h2>
+    <ol class="pagination__list">
+        <li class="pagination__list-item">
+            <button type="button" aria-label="Previous Page" [attr.disabled]="currentPage == 1 || null" attr.data-go-to-page="prevPage" class="pagination__nav pagination__prev btn btn--black-inverted" (click)="updatePagination(prevPage, true)">
+                <svg class="icon--pagination-btn">
+                    <use xlink:href="../assets/sprite.svg#chevron"></use>
+                </svg>
+                <span class="pagination__nav-label">Previous</span>
+            </button>
+        </li>
+        <ng-template [ngIf]="currentPage > 4">
+            <li class="pagination__list-item">
+                <button type="button" class="pagination__index" attr.aria-label="Page 1, display results" data-go-to-page="1" (click)="updatePagination(1, true)">
+                    1
+                </button>
+            </li>
+            <li class="pagination__list-item">
+                ...
+            </li>
+        </ng-template>
+        <div *ngFor="let pagination of paginationData, index as i, count as length">
+            <li class="pagination__list-item" *ngIf="pagination.showPaginationListItem">
+                <button type="button" class="pagination__index" [ngClass]="{active: currentPage == i + 1}" attr.aria-label="Page {{i+1}}, display results" attr.data-go-to-page="{{i + 1}}"  (click)="updatePagination(i + 1, true)">
+                    {{i + 1}}
+                </button>
+            </li>
+        </div>
+        <ng-template [ngIf]="pageCount - currentPage >=4">
+            <li class="pagination__list-item">
+                ...
+            </li>
+            <li class="pagination__list-item">
+                <button type="button" class="pagination__index" attr.aria-label="Page {{pageCount}}, display results" attr.data-go-to-page="{{pageCount}}" (click)="updatePagination(pageCount, true)">
+                    {{pageCount}}
+                </button>
+            </li>
+        </ng-template>
+
+        <li class="pagination__list-item">
+            <button type="button" aria-label="Next Page" attr.data-go-to-page="nextPage" [attr.disabled]="currentPage == pageCount || null" class="pagination__nav pagination__next btn btn--black-inverted" (click)="updatePagination(nextPage, true)">
+                <span class="pagination__nav-label">Next</span><svg class="icon--pagination-btn rotate-180">
+                    <use xlink:href="../assets/sprite.svg#chevron"></use>
+                </svg>
+            </button>
+        </li>
+    </ol>
+</nav>
