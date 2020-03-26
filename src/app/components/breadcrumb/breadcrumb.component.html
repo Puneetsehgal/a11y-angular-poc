@@ -1,0 +1,15 @@
+<div class="container">
+    <section>
+        <nav aria-label="Breadcrumb" class="breadcrumb">
+            <ol>
+                <li *ngFor='let breadcrumb of breadcrumbs'>
+                    <a *ngIf="breadcrumb.link" href="{{breadcrumb.link}}">{{breadcrumb.label}}</a>
+                    <a *ngIf="!breadcrumb.link" href="./plp/index.html" aria-current="page">{{breadcrumb.label}}</a>
+                </li>
+            </ol>
+        </nav>
+        <!-- <nav class="breadcrumb--back-link">
+            &lt; <a href="parentlink">Back to parent.label</a>
+        </nav> -->
+    </section>
+</div>

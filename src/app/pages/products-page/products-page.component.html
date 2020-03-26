@@ -1,0 +1,9 @@
+<app-breadcrumb></app-breadcrumb>
+<div class="container">
+  <section id="content" class="main-content">
+    <h1 id="page-title" class="template-heading">Women’s Tops</h1>
+    <app-product-filters></app-product-filters>
+    <div class="loading" *ngIf="loading"><img src="https://i.gifer.com/4V0b.gif" style="display: block; margin: 20px auto; width: 100px; height: 100px;"></div>
+    <app-product-tile *ngIf="!loading" [productData]="productProxyData"></app-product-tile>
+  </section>
+</div>
