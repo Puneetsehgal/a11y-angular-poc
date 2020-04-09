@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ProductsPageComponent } from '../../pages/products-page/products-page.component'
+import { ProductsGridComponent } from '../../pages/products-grid/products-grid.component'
 import { focusOnElement } from '../../services/utils.service';
 
 @Component({
@@ -15,7 +15,7 @@ export class PaginationComponent implements OnInit {
   currentPage: number = 1;
   pageCount: number = 0;
 
-  constructor(private productsPage: ProductsPageComponent) { }
+  constructor(private productsPage: ProductsGridComponent) { }
 
   ngOnInit(): void {
     const self = this;
@@ -52,23 +52,27 @@ export class PaginationComponent implements OnInit {
   *
   * @returns {Boolean}
   */
-  updatePagination(index: number, click?: boolean) {
+  updatePagination(index: number, event?) {
     this.currentPage = index;
-    this.nextPage = this.currentPage === this.pageCount ? this.pageCount : this.currentPage + 1;
-    this.prevPage = this.currentPage === 1 ? 1 : this.currentPage - 1;
-    this.productsPage.productProxyData.currentPageIndex = this.currentPage - 1;
+
+    this.nextPage = (index === this.pageCount && this.pageCount) || index + 1;
+    this.prevPage = (index === 1 && index) || index - 1;
+
+    this.productsPage.productProxyData.currentPageIndex = index - 1;
     this.productsPage.productProxyData.productsGrid = this.productsPage.productProxyData.pages[index - 1];
 
     this.paginationData.map((pages, i) => {
-      pages.showPaginationListItem = this.showPaginationList(i + 1);
+      i++;
+      pages.showPaginationListItem = this.showPaginationList(i);
+      pages.label = i;
       return pages
     });
-    console.log(click);
-    if (click) {
-      let element = document.getElementById('page-title');
-      element.scrollIntoView({behavior: 'smooth'})
-      // focusOnElement(element);
+
+    // move focus back to the top
+    if (event) {
+      let element = document.getElementById('content');
+      event.currentTarget.blur();
+      element.scrollIntoView({behavior: 'smooth'});      
     }
-    
   }
 }

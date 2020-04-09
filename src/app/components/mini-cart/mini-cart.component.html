@@ -1,0 +1,15 @@
+<div class="mini-cart__dropdown" [ngClass]="{expanded: miniCartExpanded}" data-js="mini-cart-dropdown">
+    <h2 class="mini-cart__title">Cart</h2>
+    <button class="mini-cart__btn--close" data-js="mini-cart-close" (click)="miniCartService.closeMiniCart()">
+        <span class="sr-only">Close</span>
+        <svg class="icon--close-btn">
+            <use xlink:href="../assets/sprite.svg#close"></use>
+        </svg>
+    </button>
+
+    <app-mini-cart-items class="mini-cart__items"></app-mini-cart-items>
+    <div class="mini-cart__summary-controls">
+        <a href="./cart" class="mini-cart__cta-btn btn btn--outline-black" data-modal-show="construction-modal">View Cart</a>
+        <a href="./checkout" class="mini-cart__cta-btn mini-cart__checkout btn btn--primary" (blur)="miniCartService.blurCloseMiniCart()">Checkout</a>
+    </div>
+</div>

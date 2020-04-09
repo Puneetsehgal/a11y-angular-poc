@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ProductsPageComponent } from '../../pages/products-page/products-page.component'
+import { ProductsGridComponent } from '../../pages/products-grid/products-grid.component'
 
 @Component({
   selector: 'app-breadcrumb',
@@ -9,7 +9,7 @@ import { ProductsPageComponent } from '../../pages/products-page/products-page.c
 export class BreadcrumbComponent implements OnInit {
   breadcrumbs;
 
-  constructor(private productsPage: ProductsPageComponent) { }
+  constructor(private productsPage: ProductsGridComponent) { }
 
   ngOnInit(): void {
     this.productsPage.breadcrumbs.observables.breadcrumbData.subscribe(data => {

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ProductsPageComponent } from '../../pages/products-page/products-page.component'
+import { ProductsGridComponent } from '../../pages/products-grid/products-grid.component'
 
 @Component({
   selector: 'app-product-sort',
@@ -11,7 +11,7 @@ export class ProductSortComponent implements OnInit {
   showingProducts: string;
   itemsPerPage: number = 12;
 
-  constructor(private productsPage: ProductsPageComponent) { }
+  constructor(private productsPage: ProductsGridComponent) { }
 
   ngOnInit(): void {
     this.productsPage.productsObservable.currentPageIndex.subscribe(index => {
@@ -33,7 +33,6 @@ export class ProductSortComponent implements OnInit {
           document.getElementById('itemsPerPage').removeAttribute('disabled');
         }
       }
-
     });
   }
 
@@ -47,7 +46,7 @@ export class ProductSortComponent implements OnInit {
 
   productsPerPage(value) {
     this.itemsPerPage = value;
-    this.productsPage.setProductsPerPage(+value); // + profix covert string to number
+    this.productsPage.setProductsPerPage(+value); // + prefix covert string to number
   }
 
   viewBy(value) {

@@ -1,0 +1,29 @@
+<div aria-label="Security code tooltip" class="payment-information__tooltip" [ngClass]="{'visible': openToolTip}">
+    <button class="payment-information__tooltip-icon" title="View tool tip" aria-describedby="tooltip-security-code" type="button" [attr.aria-expanded]="openToolTip" (click)="openToolTip = !openToolTip" (blur)="blurCloseToolTip()">
+        <span [attr.aria-hidden]="!openToolTip">?</span>
+    </button>
+    <div class="payment-information__tooltip-popup" id="tooltip-security-code" [attr.aria-hidden]="!openToolTip">
+        <div class="payment-information__tooltip-popup-background">
+            <div class="payment-information__tooltip-content" [attr.tabindex]="openToolTip ? 0 : -1">
+                <h1>Where to find your credit card security code</h1>
+                <p>Every credit card has a 3 or 4 digit security code called the CSC, CVV, CV2, CVC, or CCV. It can be found on either the front or on the back of your card.</p>
+                <h2 aria-hidden="true">American Express</h2>
+                <div class="sample-credit-card sample-amex">
+                    <p aria-hidden="true">0000</p>
+                    <p aria-hidden="true">0000 000000 00000</p>
+                </div>
+                <h2 aria-hidden="true">Visa, Mastercard, Discover,...</h2>
+                <div class="sample-credit-card sample-others">
+                    <p aria-hidden="true"><span>000</span></p>
+                </div>
+            </div>
+            <button class="payment-information__tooltip-popup__btn--close" type="button" (click)="openToolTip = false" (blur)="openToolTip = false">
+                <span class="sr-only">Close</span>
+                <svg class="icon--close-btn">
+                    <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="../../assets/sprite.svg#close"></use>
+                </svg>
+            </button>
+        </div>
+        <div class="payment-information__tooltip-popup-arrow"></div>
+    </div>
+</div>

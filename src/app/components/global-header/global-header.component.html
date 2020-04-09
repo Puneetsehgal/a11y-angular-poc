@@ -63,7 +63,7 @@
             </li>
             <li class="secondary-nav__item secondary-nav__mini-cart mini-cart__toggle" data-component="mini-cart">
                 <button aria-label="Mini Cart, 0 items" data-js="mini-cart-toggle" class="secondary-nav__button"
-                    aria-haspopup="true" aria-expanded="false">
+                    aria-haspopup="true" attr.aria-expanded="{{miniCartExpanded || false}}" (click)="miniCartService.toggleMiniCart($event)" (blur)="miniCartService.blurCloseMiniCart()">
                     <span aria-live="assertive" aria-atomic="true" class="element-invisible mini-cart__aria">You
                         have 0 items in
                         your cart.</span>
@@ -73,7 +73,8 @@
                     Cart
                     <span class="mini-cart__visible-label--amount" data-js="cart-item-count">0</span>
                 </button>
-                <div data-template="mini-cart"></div>
+                <!--Mini Cart Template -->
+                <app-mini-cart></app-mini-cart>
             </li>
             <li class="secondary-nav__item secondary-nav__stores">
                 <button class="secondary-nav__button" data-modal-show="construction-modal">

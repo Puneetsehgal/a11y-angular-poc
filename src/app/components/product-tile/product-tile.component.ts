@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { ProductsPageComponent } from '../../pages/products-page/products-page.component'
+import { ProductsGridComponent } from '../../pages/products-grid/products-grid.component'
 import { ConstantVariablesService } from '../../services/constant-variables.service'
 
 @Component({
@@ -10,7 +10,7 @@ import { ConstantVariablesService } from '../../services/constant-variables.serv
 export class ProductTileComponent implements OnInit {
   @Input() productData;
   rootPath: string;
-  constructor(private productsPage: ProductsPageComponent, private _constant: ConstantVariablesService) {
+  constructor(private productsPage: ProductsGridComponent, private _constant: ConstantVariablesService) {
     this.rootPath = this._constant.rootPath;
   }
   ngOnInit() {
