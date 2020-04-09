@@ -1,8 +1,13 @@
-import { Injectable } from '@angular/core';
-
-// @Injectable({
-//   providedIn: 'root'
-// })
+export function activeElementMatches(matchList) {
+  // the active element (with focus) isn't available yet when the blur event fires
+  // so we kick this function down the stack a little with requestAnimationFrame
+  return new Promise(function (resolve) {
+    window.requestAnimationFrame(function () {
+      const activeFocusElement = document.activeElement;
+      resolve(activeFocusElement.matches(matchList));
+    });
+  });
+}
 
 /**
  * Breaks a long array into an array of subset arrays of specified size
@@ -143,9 +148,17 @@ export function focusOnElement(element) {
     });
   }
 }
+
 export function roundNumber(value) {
   let mathRound  = Math.round(value * 100 ) / 100;
   return Number(mathRound);
+}
+
+export function sortObj(obj) {
+  return Object.keys(obj).sort().reduce((acc, key) => {
+    acc[key] = obj[key];
+    return acc
+  }, {});
 }
 
 

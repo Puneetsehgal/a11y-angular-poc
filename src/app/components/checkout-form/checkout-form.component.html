@@ -1,0 +1,212 @@
+<header>
+    <h1 class="template-heading">Checkout</h1>
+    <span>* Required</span>
+</header>
+<h2>
+    <span id="contact-info-heading">Contact Information</span>
+    <span class="sign-in-text">Already a member?
+        <a href="/index.html" data-modal-show="construction-modal">Sign in</a>
+    </span>
+</h2>
+<hr />
+
+<form [formGroup]="checkoutForm" (ngSubmit)="onSubmit()">
+    <div formArrayName="shippingInfo" *ngFor="let info of checkoutForm.get('shippingInfo')['controls']; let i = index;">
+        <div [formGroupName]="i">
+
+            <section class="checkout__guest-sign-in-email guest-sign-in-email">
+                <p class="guest-sign-in-email__error-summary error-summary" *ngIf="totalError" role="alert"
+                    data-section="">
+                    {{totlaErroText}}
+                </p>
+                <div class="form-group" [ngClass]="{'has-error': shippingInfoObj['guest-sign-in-email'].hasError}">
+                    <label for="guest-sign-in-email">Email *</label>
+                    <input type="email" class="form-control" id="guest-sign-in-email"
+                        [ngClass]="{'has-error': shippingInfoObj['guest-sign-in-email'].hasError}"
+                        aria-describedby="guest-info-heading error-msg-guest-email"
+                        formControlName="guest-sign-in-email">
+
+                    <field-error-display [displayError]="shippingInfoObj['guest-sign-in-email'].hasError"
+                        errorMsg="Please input a valid email" errorId="error-msg-guest-email">
+                    </field-error-display>
+                </div>
+            </section>
+
+            <section class="checkout__shipping-information shipping-information">
+                <h2>Shipping Information</h2>
+                <hr />
+                <h3 id="shipping-address-heading">Shipping Address</h3>
+                <hr class="hr-2" />
+                <p class="shipping-information__error-summary error-summary hidden" role="alert"
+                    data-section="shipping address"></p>
+                <div class="form-group" *ngFor="let si of objectKeys(shippingInfoObj) | slice: 1"
+                    [ngClass]="{'has-error': shippingInfoObj[si].hasError}">
+                    <label [attr.for]="si">
+                        {{shippingInfoObj[si].label}}
+                        <span *ngIf="shippingInfoObj[si].required">*</span>
+                    </label>
+                    <input *ngIf="shippingInfoObj[si].type != 'select'" [attr.type]="shippingInfoObj[si].type"
+                        class="form-control" [attr.id]="si"
+                        [attr.aria-describedby]="si != 'shipping-apt-suite' ? 'shipping-address-heading error-msg-'+ si : 'sr-only-shipping-apt-suite'"
+                        [attr.required]="shippingInfoObj[si].required || null" [formControlName]="si"
+                        [ngClass]="{'has-error': shippingInfoObj[si].hasError}"
+                        (blur)="$event.target.value = $event.target.value.toUpperCase()">
+
+                    <span *ngIf="si == 'shipping-apt-suite'" class="hidden" id="sr-only-shipping-apt-suite">
+                        Appartment number, suite number or unit number.
+                    </span>
+
+                    <!--provices select menu-->
+                    <select *ngIf="shippingInfoObj[si].type == 'select'"
+                        class="shipping-information__province form-control" id="shipping-province"
+                        name="shipping-province" data-required="true"
+                        aria-describedby="shipping-address-heading error-msg-shipping-province" [formControlName]="si"
+                        required [ngClass]="{'has-error': shippingInfoObj[si].hasError}">
+                        <option value="" selected>Select a Province</option>
+                        <option *ngFor='let province of provincesObj' [attr.value]="province.key">
+                            {{province.name}}
+                        </option>
+                    </select>
+
+                    <!--Error-->
+                    <field-error-display [displayError]="shippingInfoObj[si].hasError"
+                        [errorMsg]="shippingInfoObj[si].error" [errorId]="'error-msg-'+si">
+                    </field-error-display>
+                </div>
+                <h3>Shipping Method</h3>
+                <hr class="hr-2" />
+                <fieldset class="shipping-information__shipping-options">
+                    <legend class="sr-only">Shipping Method</legend>
+                    <label class="shipping-information__shipping-type">
+                        <input class="shipping-options__option" type="radio" name="shipping-method" id="cp-10-day"
+                            value="cp-10-day" (change)="shippingMethod($event)" formControlName="shipping-method">
+                        <span class="custom-radio"></span>
+                        $0.00 Canada Post - Free Shipping. Delivers in 10 days.
+                    </label>
+                    <label class="shipping-information__shipping-type">
+                        <input class="shipping-options__option" type="radio" name="shipping-method" id="ex-5-day"
+                            value="ex-5-day" (change)="shippingMethod($event)" formControlName="shipping-method">
+                        <span class="custom-radio"></span>
+                        $8.00 Canada Post - Express Shipping. Delivers in 5 days.
+                    </label>
+                    <label class="shipping-information__shipping-type">
+                        <input class="shipping-options__option" type="radio" name="shipping-method" id="xp-2-3-day"
+                            value="xp-2-3-day" (change)="shippingMethod($event)" formControlName="shipping-method">
+                        <span class="custom-radio"></span>
+                        $14.00 Canada Post - Xpresspost. Delivers in 2 to 3 days.
+                    </label>
+                    <label class="shipping-information__shipping-type">
+                        <input class="shipping-options__option" type="radio" name="shipping-method" id="pr-1-day"
+                            value="pr-1-day" (change)="shippingMethod($event)" formControlName="shipping-method">
+                        <span class="custom-radio"></span>
+                        $20.00 Canada Post - Priority Delivery. Delivers in 24 hours.
+                    </label>
+                </fieldset>
+            </section>
+        </div>
+    </div>
+
+    <div class="checkout__payment-information payment-information">
+        <div class="payment-info__heading-container">
+            <h2 id="payment-info-heading">Payment Information</h2>
+            <hr />
+            <h3>Card Information</h3>
+            <hr class="hr-2" />
+            <p class="payment-information__error-summary error-summary hidden" role="alert"
+                data-section="payment and billing"></p>
+            <h4>Accepted Cards</h4>
+            <ul class="payment-information__credit-cards">
+                <li><img src="../../assets/visa-logo.svg" alt="Visa"></li>
+                <li><img src="../../assets/mastercard-logo.svg" alt="Mastercard"></li>
+                <li><img src="../../assets/amex-logo.svg" alt="American Express"></li>
+                <li><img src="../../assets/discover-logo.svg" alt="Discover"></li>
+            </ul>
+        </div>
+
+        <div formArrayName="paymentMenthod" class="payment-information__form-row"
+            *ngFor="let pm of checkoutForm.get('paymentMenthod')['controls']; let i = index;">
+            <div [formGroupName]="i" class="form-group" *ngFor="let pi of objectKeys(paymentInfoObj)"
+                [ngClass]="{'has-error': paymentInfoObj[pi].hasError, 'payment-information__column': paymentInfoObj[pi].column}">
+                <div [ngClass]="{'payment-information__label-tooltip': paymentInfoObj[pi].toolTip}">
+                    <label [attr.for]="pi">{{paymentInfoObj[pi].label}}
+                        <span *ngIf="paymentInfoObj[pi].required">*</span>
+                    </label>
+                    <tooltip *ngIf="paymentInfoObj[pi].toolTip"></tooltip>
+                </div>
+                <input [attr.type]="paymentInfoObj[pi].type" class="form-control" [attr.id]="pi"
+                    [attr.aria-describedby]="paymentInfoObj[pi].ariaDescribedBy"
+                    [attr.data-input-type]="paymentInfoObj[pi].dataInputType"
+                    [attr.maxlength]="paymentInfoObj[pi].maxLength"
+                    [attr.required]="paymentInfoObj[pi].required || null" [formControlName]="pi"
+                    [ngClass]="{'has-error': paymentInfoObj[pi].hasError}">
+
+                <field-error-display [displayError]="paymentInfoObj[pi].hasError" [errorMsg]="paymentInfoObj[pi].error"
+                    [errorId]="'error-msg-'+pi">
+                </field-error-display>
+            </div>
+        </div>
+    </div>
+
+    <div class="billing-address__heading-container">
+        <h3 id="billing-address-heading">
+            Billing address
+        </h3>
+        <hr class="hr-2" />
+        <label for="billing-address-remove" class="billing-address__billing-address-check">
+            <input type="checkbox" name="billing-address-remove" id="billing-address-remove"
+                class="billing-address__billing-address-checkbox" checked="checked"
+                (change)="tooglebillingAddressSameAsShipping()" />
+            <span class="billing-address__billing-address-custom-checkbox"></span>
+            <span>
+                My billing address is the same as my shipping address
+            </span>
+        </label>
+    </div>
+
+    <div class="checkout__billing-address billing-address" formArrayName="billingInfo"
+        *ngFor="let billingInfo of checkoutForm.get('billingInfo')['controls']; let i = index;">
+        <div [formGroupName]="i" *ngIf="billingInfo">
+            <div class="checkout__billing-address-form checkout__billing-address-form--hidden"
+                [ngClass]="{'checkout__billing-address-form--hidden': billingAddressSameAsShipping }">
+                <div class="form-group" *ngFor="let bi of objectKeys(billingInfoObj)"
+                    [ngClass]="{'has-error': billingInfoObj[bi].hasError}">
+                    <label [attr.for]="bi">
+                        {{billingInfoObj[bi].label}}
+                        <span *ngIf="billingInfoObj[bi].required">*</span>
+                    </label>
+                    <input *ngIf="billingInfoObj[bi].type != 'select'" [attr.type]="billingInfoObj[bi].type"
+                        class="form-control" [attr.id]="bi"
+                        [attr.aria-describedby]="bi != 'billing-apt-suite' ? 'shipping-address-heading error-msg-'+ bi : 'sr-only-shipping-apt-suite'"
+                        [attr.required]="billingInfoObj[bi].required || null" [formControlName]="bi"
+                        [ngClass]="{'has-error': billingInfoObj[bi].hasError}"
+                        (blur)="$event.target.value = $event.target.value.toUpperCase()">
+
+                    <span *ngIf="bi == 'billing-apt-suite'" class="hidden" id="sr-only-shipping-apt-suite">
+                        Appartment number, suite number or unit number.
+                    </span>
+
+                    <!--provices select menu-->
+                    <select *ngIf="billingInfoObj[bi].type == 'select'"
+                        class="shipping-information__province form-control" id="shipping-province"
+                        name="shipping-province" data-required="true"
+                        aria-describedby="shipping-address-heading error-msg-shipping-province" [formControlName]="bi"
+                        required [ngClass]="{'has-error': billingInfoObj[bi].hasError}">
+                        <option value="" selected>Select a Province</option>
+                        <option *ngFor='let province of provincesObj' [attr.value]="province.key">
+                            {{province.name}}
+                        </option>
+                    </select>
+
+                    <!--Error-->
+                    <field-error-display [displayError]="billingInfoObj[bi].hasError"
+                        [errorMsg]="billingInfoObj[bi].error" [errorId]="'error-msg-'+si">
+                    </field-error-display>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <button type="submit" class="btn btn--black payment-information__submit" id="payment-information-submit">
+        Finish and Review Order
+    </button>
+</form>

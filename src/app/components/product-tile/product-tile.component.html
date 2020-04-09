@@ -8,7 +8,7 @@
         </div>
         <div class="product-grid__product-tiles">
             <article class="productGrid__product-tile product-tile" *ngFor="let product of productData.productsGrid">
-                <a class="product-tile__link" href="../pdp/index.html?product_id={{product.product_id}}" attr.aria-label="{{product.product_name}}, ${{product.price_sale}}, product details">
+                <a class="product-tile__link" [routerLink]="['../pdp', 'product_id:' + product.product_id]" attr.aria-label="{{product.product_name}}, ${{product.price_sale}}, product details">
                     <img class="product-tile__image" src="../assets/{{product.thumbnail_url}}" alt="">
                     <p class="product-tile__product-name">{{product.product_name}}</p>
                     <span class="product-tile__price">{{product.price_sale}}</span>

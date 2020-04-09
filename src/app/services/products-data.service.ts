@@ -23,8 +23,7 @@ export class ProductsDataService {
 
   getProductsData() {
     const self = this;
-    return self.productDB.getOrCreateProductDB().then(() => self.fetchComponentData(self)
-    );
+    return self.productDB.getOrCreateProductDB().then(() => self.fetchComponentData(self));
   };
 
   fetchComponentData(self, filters?) {

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ProductsPageComponent } from '../../pages/products-page/products-page.component'
+import { ProductsGridComponent } from '../../pages/products-grid/products-grid.component'
 import { Filters } from '../../classes/filters';
 
 @Component({
@@ -22,7 +22,7 @@ export class ProductFiltersComponent implements OnInit {
     { name: 'medium', selected: false },
     { name: 'small', selected: false },
   ];
-  constructor(private products: ProductsPageComponent) { }
+  constructor(private products: ProductsGridComponent) { }
 
   ngOnInit(): void {
   }

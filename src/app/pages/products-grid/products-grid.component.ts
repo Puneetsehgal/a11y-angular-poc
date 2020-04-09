@@ -6,11 +6,11 @@ import { observe } from "rxjs-observe";
 import { ModalComponent } from '../../components/modal/modal.component';
 
 @Component({
-  selector: 'app-products-page',
-  templateUrl: './products-page.component.html',
-  styleUrls: ['./products-page.component.scss']
+  selector: 'app-products-grid',
+  templateUrl: './products-grid.component.html',
+  styleUrls: ['./products-grid.component.scss']
 })
-export class ProductsPageComponent implements OnDestroy {
+export class ProductsGridComponent implements OnDestroy {
   productPerPage: number = 12;
   totalProductsData: Product = new Product();
   totalProductLength: number = 0;
@@ -39,7 +39,7 @@ export class ProductsPageComponent implements OnDestroy {
     const self = this;
     this.productDataService.getProductsData().then(function (data) {
       self.updateProductsData(self, data);
-      self.Modal.init('construction-modal');
+      // self.Modal.init('construction-modal');
     });
   }
 

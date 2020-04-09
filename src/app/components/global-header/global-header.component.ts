@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ConstantVariablesService } from '../../services/constant-variables.service'
+import {  MiniCartService } from '../../services/mini-cart.service';
 
 @Component({
   selector: 'app-global-header',
@@ -13,9 +14,13 @@ export class GlobalHeaderComponent implements OnInit {
   navigationMenu: Object = {};
   openSubMenu: boolean = false;
   navId: string;
+  miniCartExpanded: boolean;
 
-  constructor(private _constant: ConstantVariablesService) {
+  constructor(private _constant: ConstantVariablesService, public miniCartService: MiniCartService) {
     this.rootPath = this._constant.rootPath;
+    this.miniCartService.miniCart.observables.miniCartExpanded.subscribe(data => {
+      this.miniCartExpanded = data;
+    });
   }
 
   ngOnInit(): void {
