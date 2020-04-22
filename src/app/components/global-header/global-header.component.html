@@ -65,13 +65,13 @@
                 <button aria-label="Mini Cart, 0 items" data-js="mini-cart-toggle" class="secondary-nav__button"
                     aria-haspopup="true" attr.aria-expanded="{{miniCartExpanded || false}}" (click)="miniCartService.toggleMiniCart($event)" (blur)="miniCartService.blurCloseMiniCart()">
                     <span aria-live="assertive" aria-atomic="true" class="element-invisible mini-cart__aria">You
-                        have 0 items in
+                        have {{itemsInTheCart}} items in
                         your cart.</span>
                     <svg class="icon icon--menu-btn">
                         <use xlink:href="/assets/sprite.svg#cart"></use>
                     </svg>
                     Cart
-                    <span class="mini-cart__visible-label--amount" data-js="cart-item-count">0</span>
+                    <span class="mini-cart__visible-label--amount" data-js="cart-item-count">{{itemsInTheCart}}</span>
                 </button>
                 <!--Mini Cart Template -->
                 <app-mini-cart></app-mini-cart>

@@ -17,7 +17,7 @@ import { ProductsGridComponent } from './pages/products-grid/products-grid.compo
 import { ProductSortComponent } from './components/product-sort/product-sort.component';
 import { BreadcrumbComponent } from './components/breadcrumb/breadcrumb.component';
 import { PaginationComponent } from './components/pagination/pagination.component';
-import { ModalComponent  } from './components/modal/modal.component';
+import { ModalComponent } from './components/modal/modal.component';
 import { MiniCartComponent, MiniCartItems } from './components/mini-cart/mini-cart.component';
 
 import { ConstantVariablesService } from './services/constant-variables.service';
@@ -25,6 +25,8 @@ import { ProductDetailComponent } from './pages/product-detail/product-detail.co
 import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.component';
 import { CheckoutFormComponent, FieldErrorDisplayComponent, TooltipComponent } from './components/checkout-form/checkout-form.component';
 import { FormFieldsService } from './services/form-fields.service';
+import { OrderSummaryComponent } from './components/order-summary/order-summary.component';
+import { OrderSummaryItemsComponent } from './components/order-summary-items/order-summary-items.component';
 
 @NgModule({
   declarations: [
@@ -42,13 +44,15 @@ import { FormFieldsService } from './services/form-fields.service';
     BreadcrumbComponent,
     PaginationComponent,
     ModalComponent,
-    MiniCartComponent, 
-    MiniCartItems, 
-    ProductDetailComponent, 
-    PageNotFoundComponent, 
+    MiniCartComponent,
+    MiniCartItems,
+    ProductDetailComponent,
+    PageNotFoundComponent,
     CheckoutFormComponent,
     FieldErrorDisplayComponent,
-    TooltipComponent
+    TooltipComponent,
+    OrderSummaryComponent,
+    OrderSummaryItemsComponent
   ],
   imports: [
     BrowserModule,
@@ -62,7 +66,8 @@ import { FormFieldsService } from './services/form-fields.service';
     ProductTileComponent,
     BreadcrumbComponent,
     ModalComponent,
-    FormFieldsService
+    FormFieldsService,
+    CheckoutFormComponent
   ],
   bootstrap: [AppComponent]
 })
