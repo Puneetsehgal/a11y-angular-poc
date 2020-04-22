@@ -27,6 +27,12 @@ export class MiniCartComponent implements OnInit {
   styleUrls: ['./mini-cart.component.scss']
 })
 
-export class MiniCartItems {
+export class MiniCartItems implements OnInit {
+  cartItems: Array<any>
 
+  constructor(private miniCartService: MiniCartService) {}
+
+  ngOnInit() {
+    this.cartItems = this.miniCartService.cartItems;
+  }
 }

@@ -13,7 +13,28 @@ export class MiniCartService {
   }
   miniCart = observe(this.instances);
   outsideMiniCart = true;
-
+  
+  cartItems: Array<any> = [{
+    cart_id: 1,
+    color: "red",
+    price_sale: "34.99",
+    product_id: "37",
+    product_name: "Long Sleeved T-Shirt",
+    quantity: "1",
+    size: "small",
+    thumbnail_url: "blue-t-shirt_4460x4460.jpg",
+    total_price: 34.99
+  }, {
+    cart_id: 1,
+    color: "red",
+    price_sale: "34.99",
+    product_id: "37",
+    product_name: "Long Sleeved T-Shirt",
+    quantity: "1",
+    size: "small",
+    thumbnail_url: "blue-t-shirt_4460x4460.jpg",
+    total_price: 34.99
+  }];
 
   constructor() { }
 

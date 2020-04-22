@@ -15,6 +15,7 @@ export class GlobalHeaderComponent implements OnInit {
   openSubMenu: boolean = false;
   navId: string;
   miniCartExpanded: boolean;
+  itemsInTheCart: number;
 
   constructor(private _constant: ConstantVariablesService, public miniCartService: MiniCartService) {
     this.rootPath = this._constant.rootPath;
@@ -40,6 +41,8 @@ export class GlobalHeaderComponent implements OnInit {
       obj["subMenu"] = subMenu;
       return obj;
     });
+
+    this.itemsInTheCart = this.miniCartService.cartItems.length;
   }
 
   onClickOpenSubMenu(id) {
